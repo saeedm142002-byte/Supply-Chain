@@ -145,7 +145,7 @@ This page analyzes shipping performance, highlighting late deliveries, on-time r
 ### 👥 4. Customer Insights
 This page focuses on customer behavior, including new vs returning customers, retention rate, and customer segmentation.
 
-![Customers](Screenshots/customers.png)
+![Customers](Screenshots/Customers.png)
 
 
 
@@ -154,7 +154,7 @@ This page focuses on customer behavior, including new vs returning customers, re
 ### 🛍️ 5. Product & Category Performance
 This page highlights top-performing products, categories, and departments based on profit and ROI.
 
-![Products](Screenshots/products.png)
+![Products](Screenshots/Products.png)
 
 
 ## 📂 Repository Structure
