@@ -130,7 +130,7 @@ This page provides a high-level summary of overall business performance, includi
 ### 🌍 2. Sales & Profitability
 This page explores performance across different markets, showing profit distribution, regional trends, and market shifts over time.
 
-![Regions](Screenshots/Sales & Profitability.png)
+![Regions](Screenshots/Sales&Profitability.png)
 
 
 ---
@@ -138,14 +138,14 @@ This page explores performance across different markets, showing profit distribu
 ### 🚚 3. Logistics & Delivery Performance
 This page analyzes shipping performance, highlighting late deliveries, on-time rates, average shipping time, and performance across different shipping modes.
 
-![Logistics](Screenshots/Logistics Performance.png)
+![Logistics](Screenshots/Logistics_Performance.png)
 
 ---
 
 ### 👥 4. Customer Insights
 This page focuses on customer behavior, including new vs returning customers, retention rate, and customer segmentation.
 
-![Customers](Screenshots/customers Insights.png)
+![Customers](Screenshots/customers_Insights.png)
 
 
 
@@ -154,7 +154,7 @@ This page focuses on customer behavior, including new vs returning customers, re
 ### 🛍️ 5. Product & Category Performance
 This page highlights top-performing products, categories, and departments based on profit and ROI.
 
-![Products](Screenshots/products Analysis.png)
+![Products](Screenshots/products_Analysis.png)
 
 
 ## 📂 Repository Structure
