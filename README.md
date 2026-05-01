@@ -1,7 +1,7 @@
 # 📦 Supply Chain & Profitability & Logistics Performance Analysis
 
 ## 📑 Table of Contents
-- [Overview](#-overview)
+1. [Overview](#-overview)
 - [Business Problem](#-business-problem)
 - [Key Insights](#-key-insights)
   - [Revenue & Profitability](#1-revenue--profitability)
