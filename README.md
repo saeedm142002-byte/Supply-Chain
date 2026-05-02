@@ -22,7 +22,7 @@
 ---
 
 ## 📌 Overview
-This project presents a comprehensive analysis of a Supply Chain and Sales dataset with the goal of uncovering key insights related to business performance, operational efficiency, customer behavior, and regional trends.
+* This project presents a comprehensive analysis of a Supply Chain and Sales dataset with the goal of uncovering key insights related to business performance, operational efficiency, customer behavior, and regional trends.
 
 Despite achieving a **+4.5% year-over-year increase in total orders**, the company experienced a decline in both revenue quality and profit per order, indicating that growth is driven by volume rather than value.
 
