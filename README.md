@@ -161,6 +161,11 @@ This page highlights top-performing products, categories, and departments based 
 ![Products](Screenshots/Products.png)
 
 ---
+## Dataset
+**[Supply Chain Dataset](https://www.kaggle.com/datasets/shashwatwork/dataco-smart-supply-chain-for-big-data-analysis?select=DataCoSupplyChainDataset.csv)**
+
+## Real Live Dashboard
+**[Supply Chain Dashboard]([https://github.com/username/project-link](https://app.powerbi.com/groups/me/reports/7cd39a41-cfec-4c48-9f14-21292e4d9578/58a4b8b1c79cc088c53e?experience=power-bi))**
 
 ## 🚀 Key Takeaways
 This project demonstrates that growth in order volume does not necessarily translate into business success. Sustainable growth requires strong revenue quality, efficient operations, and a positive customer experience.
