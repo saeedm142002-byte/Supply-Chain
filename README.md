@@ -24,14 +24,16 @@
 ## 📌 Overview
 * This project presents a comprehensive analysis of a Supply Chain and Sales dataset with the goal of uncovering key insights related to business performance, operational efficiency, customer behavior, and regional trends.
 
-Despite achieving a **+4.5% year-over-year increase in total orders**, the company experienced a decline in both revenue quality and profit per order, indicating that growth is driven by volume rather than value.
+* Despite achieving a **+4.5% year-over-year increase in total orders**, the company experienced a decline in both revenue quality and profit per order, indicating that growth is driven by volume rather than value.
 
 ---
 
 ## 🎯 Business Problem
-Although the business is growing in terms of order volume, several underlying issues are negatively impacting overall performance. Revenue per order is declining, customer retention is weakening, and delivery delays are significantly high.
+* Although the business is growing in terms of order volume, several underlying issues are negatively impacting overall performance. Profit per order is declining, customer retention is weakening, and delivery delays are significantly high.
 
-This project aims to identify the root causes behind these challenges and provide actionable insights to improve profitability and customer experience.
+* This project aims to identify the root causes behind these challenges and provide actionable insights to improve profitability and customer experience.
+
+* Late deliveries account for 54.8% of total orders, highlighting a critical operational issue that requires immediate attention.
 
 ---
 
@@ -89,19 +91,21 @@ The company should prioritize improving logistics performance by reducing late d
 
 Customer retention should be enhanced through loyalty programs and better post-purchase experiences. The US market requires a detailed reassessment, while the LATAM market should be further scaled.
 
-Finally, increasing revenue per order through upselling and bundling strategies can help improve overall performance.
+Finally, increasing Profit per order through upselling and bundling strategies can help improve overall performance.
 
 ---
 
 ## 🛠️ Technical Approach
 
 ### Data Preparation
-The dataset was cleaned by handling missing values, fixing inconsistencies, correcting date columns, and removing duplicates.
+The dataset was cleaned by handling missing values, fixing inconsistencies, correcting date columns, and removing duplicates (Power Query).
 
 ### Data Modeling
 A **Star Schema** was implemented with a central Fact table (`FactOrders`) and multiple Dimension tables such as Customers, Products, Categories, Departments, Locations, and Shipping.
 
 A Date table was also created to enable Time Intelligence analysis.
+
+![Data Modeling](Screenshots/DataModeling.png)
 
 ### Data Analysis
 Key KPIs were developed using DAX, including AOV, Profit per Order, Delivery Performance, Retention Rate, and YoY growth metrics.
