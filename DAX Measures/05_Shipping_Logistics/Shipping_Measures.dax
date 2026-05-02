@@ -1,0 +1,118 @@
+-- ============================================================
+-- 🚚 SHIPPING & LOGISTICS MEASURES
+-- Category : Delivery Performance
+-- Tables   : Dim_Shipping, NewOrderItem
+-- ============================================================
+
+
+-- ------------------------------------------------------------
+-- Avg Delay
+-- Average delay in days (only for orders that were actually late)
+-- [Real - Scheduled] > 0 means delayed
+-- ------------------------------------------------------------
+Avg Delay =
+AVERAGEX(
+    FILTER('Dim_Shipping', Dim_Shipping[Real - Scheduled] > 0),
+    Dim_Shipping[Real - Scheduled]
+)
+
+
+-- ------------------------------------------------------------
+-- Total Delay Days
+-- Sum of all extra days across delayed orders
+-- ------------------------------------------------------------
+Total Delay Days =
+CALCULATE(
+    SUM(Dim_Shipping[Real - Scheduled]),
+    Dim_Shipping[Real - Scheduled] > 0
+)
+
+
+-- ------------------------------------------------------------
+-- Avg Shipping Time
+-- Total real shipping days / Total orders
+-- Dependency: [Total Orders in all years]
+-- ------------------------------------------------------------
+Avg Shipping Time =
+DIVIDE(
+    SUM(Dim_Shipping[Days for shipping (real)]),
+    [Total Orders in all years]
+)
+
+
+-- ------------------------------------------------------------
+-- Cancelled Orders %
+-- Share of orders with status = "Shipping canceled"
+-- ------------------------------------------------------------
+cancelled orders % =
+DIVIDE(
+    CALCULATE(
+        COUNT(Dim_Shipping[Delivery Status]),
+        Dim_Shipping[Delivery Status] = "Shipping canceled"
+    ),
+    COUNTROWS(Dim_Shipping)
+)
+
+
+-- ------------------------------------------------------------
+-- Count of Late Delivery Orders
+-- Raw count of orders with "Late delivery" status
+-- ------------------------------------------------------------
+Count of late delivery orders =
+CALCULATE(
+    COUNT(Dim_Shipping[Delivery Status]),
+    Dim_Shipping[Delivery Status] = "Late delivery"
+)
+
+
+-- ------------------------------------------------------------
+-- Late Delivery Rate
+-- = Late orders / Total orders
+-- Dependency: [Total Orders]
+-- ------------------------------------------------------------
+Late Del Rate =
+DIVIDE(
+    CALCULATE(
+        COUNT(Dim_Shipping[Order Id]),
+        Dim_Shipping[Delivery Status] = "Late delivery"
+    ),
+    [Total Orders],
+    0.0
+)
+
+
+-- ------------------------------------------------------------
+-- DOT on/before time
+-- Delivery On Time — % of orders that were on time or early
+-- Statuses: "Shipping on time", "Advance shipping"
+-- ------------------------------------------------------------
+DOT ot Before =
+DIVIDE(
+    CALCULATE(
+        COUNTROWS(Dim_Shipping),
+        Dim_Shipping[Delivery Status] IN {
+            "Shipping on time",
+            "Advance shipping"
+        }
+    ),
+    COUNTROWS(Dim_Shipping)
+)
+
+
+-- ------------------------------------------------------------
+-- Profit per Delay Day
+-- How much profit is lost per day of delay
+-- Dependency: [Profit (Delayed Orders)1], [Total Delay Days]
+-- ------------------------------------------------------------
+Profit Per Delay Day1 =
+DIVIDE([Profit (Delayed Orders)1], [Total Delay Day], 0)
+
+
+-- ------------------------------------------------------------
+-- Late Delivery Orders Profit (impact estimate)
+-- Estimated profit impact = Late orders * Cost per delay day * Avg delay
+-- Dependency: [Count of late delivery orders], [Cost Per Delay Day1], [Avg Delay]
+-- ⚠️  Requires [Cost Per Delay Day1] measure
+-- ------------------------------------------------------------
+Late Delivery Orders Profit =
+[Count of late delivery orders] * [Cost Per Delay Day1] * [Avg Delay]

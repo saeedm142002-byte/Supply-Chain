@@ -1,0 +1,99 @@
+-- ============================================================
+-- 💰 PROFITABILITY MEASURES
+-- Category : Profit Analysis
+-- Tables   : NewOrderItem, Dim_Products, Date Table
+-- ============================================================
+
+
+-- ------------------------------------------------------------
+-- Profit in all Years
+-- Base profit measure
+-- ------------------------------------------------------------
+Profit in all Years =
+SUM(NewOrderItem[Order Profit Per Order])
+
+
+-- ------------------------------------------------------------
+-- Profit in this year  (YTD)
+-- ------------------------------------------------------------
+Profit in this year =
+TOTALYTD([Profit in all Years], 'Date Table'[Date])
+
+
+-- ------------------------------------------------------------
+-- Profit in last year  (SPLY)
+-- ------------------------------------------------------------
+Profit in last year =
+CALCULATE(
+    [Profit in all Years],
+    SAMEPERIODLASTYEAR('Date Table'[Date])
+)
+
+
+-- ------------------------------------------------------------
+-- Avg Profit per Order in all Year
+-- ------------------------------------------------------------
+Avg Profit per Order in all Year =
+DIVIDE([Profit in all Years], [Total Orders in all years], 0)
+
+
+-- ------------------------------------------------------------
+-- Avg Profit per Order in this year  (YTD)
+-- ------------------------------------------------------------
+Avg Profit per Order in this year =
+TOTALYTD([Avg Profit per Order in all Year], 'Date Table'[Date])
+
+
+-- ------------------------------------------------------------
+-- Avg Profit per Order in last year  (SPLY)
+-- ------------------------------------------------------------
+Avg Profit per Order in last year =
+CALCULATE(
+    [Avg Profit per Order in all Year],
+    SAMEPERIODLASTYEAR('Date Table'[Date])
+)
+
+
+-- ------------------------------------------------------------
+-- Profit (Delayed Orders)
+-- Total profit from orders where shipping was delayed
+-- Dependency: Dim_Shipping[Real - Scheduled]
+-- ------------------------------------------------------------
+Profit (Delayed Orders)1 =
+CALCULATE(
+    SUM(NewOrderItem[Order Profit Per Order]),
+    Dim_Shipping[Real - Scheduled] > 0
+)
+
+
+-- ------------------------------------------------------------
+-- Product Profit  (calculated column)
+-- Profit per product — removes all filters except Product ID
+-- ------------------------------------------------------------
+Product Profit =
+CALCULATE(
+    [Profit in all Years],
+    ALLEXCEPT('Dim_Products', 'Dim_Products'[Product Id])
+)
+
+
+-- ------------------------------------------------------------
+-- Product Sales  (calculated column)
+-- Revenue per product — removes all filters except Product ID
+-- ------------------------------------------------------------
+Product Sales =
+CALCULATE(
+    [Revenues in all Years],
+    ALLEXCEPT('Dim_Products', 'Dim_Products'[Product Id])
+)
+
+
+-- ------------------------------------------------------------
+-- Profit Margin% Per Product  (calculated column)
+-- = Product Profit / Product Sales
+-- ------------------------------------------------------------
+Profit Margin% Per Product =
+DIVIDE(
+    Dim_Products[Product Profit],
+    Dim_Products[Product Sales]
+)

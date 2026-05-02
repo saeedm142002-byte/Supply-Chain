@@ -1,0 +1,45 @@
+-- ============================================================
+-- 📦 PRODUCT MEASURES
+-- Category  : Product Performance
+-- Tables    : Dim_Products, NewOrderItem
+-- Note      : These are CALCULATED COLUMNS (not measures)
+--             Add them to Dim_Products table
+-- ============================================================
+
+
+-- ------------------------------------------------------------
+-- Product Profit  [Calculated Column → Dim_Products]
+-- Total profit for each product row, ignoring all other filters
+-- Uses ALLEXCEPT to keep only the Product ID filter context
+-- Dependency: [Profit in all Years]
+-- ------------------------------------------------------------
+Product Profit =
+CALCULATE(
+    [Profit in all Years],
+    ALLEXCEPT('Dim_Products', 'Dim_Products'[Product Id])
+)
+
+
+-- ------------------------------------------------------------
+-- Product Sales  [Calculated Column → Dim_Products]
+-- Total revenue for each product row
+-- Dependency: [Revenues in all Years]
+-- ------------------------------------------------------------
+Product Sales =
+CALCULATE(
+    [Revenues in all Years],
+    ALLEXCEPT('Dim_Products', 'Dim_Products'[Product Id])
+)
+
+
+-- ------------------------------------------------------------
+-- Profit Margin% Per Product  [Calculated Column → Dim_Products]
+-- = Product Profit / Product Sales
+-- Dependency: Dim_Products[Product Profit], Dim_Products[Product Sales]
+-- Format as percentage in Power BI column settings
+-- ------------------------------------------------------------
+Profit Margin% Per Product =
+DIVIDE(
+    Dim_Products[Product Profit],
+    Dim_Products[Product Sales]
+)

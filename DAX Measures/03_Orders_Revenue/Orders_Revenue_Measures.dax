@@ -1,0 +1,100 @@
+-- ============================================================
+-- 📦 ORDERS & REVENUE MEASURES
+-- Category : Sales Performance
+-- Tables   : NewOrderItem, Date Table
+-- ============================================================
+
+
+-- ------------------------------------------------------------
+-- Revenues in all Years
+-- Base revenue measure — sum of all order item totals
+-- ------------------------------------------------------------
+Revenues in all Years =
+SUM(NewOrderItem[Order Item Total])
+
+
+-- ------------------------------------------------------------
+-- Revenues in this year  (YTD)
+-- ------------------------------------------------------------
+Revenues in this year =
+TOTALYTD([Revenues in all Years], 'Date Table'[Date])
+
+
+-- ------------------------------------------------------------
+-- Revenues in last year  (SPLY)
+-- ------------------------------------------------------------
+Revenues in last year =
+CALCULATE(
+    [Revenues in all Years],
+    SAMEPERIODLASTYEAR('Date Table'[Date])
+)
+
+
+-- ------------------------------------------------------------
+-- Total Orders in all years
+-- Distinct count of Order IDs across all time
+-- ------------------------------------------------------------
+Total Orders in all years =
+DISTINCTCOUNT(NewOrderItem[Order Id])
+
+
+-- ------------------------------------------------------------
+-- Total Orders in this year  (YTD)
+-- ------------------------------------------------------------
+Total Orders in this year =
+TOTALYTD([Total Orders in all years], 'Date Table'[Date])
+
+
+-- ------------------------------------------------------------
+-- Total Orders in last year  (SPLY)
+-- ------------------------------------------------------------
+Total Orders in last year =
+CALCULATE(
+    [Total Orders in all years],
+    SAMEPERIODLASTYEAR('Date Table'[Date])
+)
+
+
+-- ------------------------------------------------------------
+-- AOV — Average Order Value
+-- = Total Revenue / Total Orders
+-- Dependency: [Revenues in all Years], [Total Orders in all years]
+-- ------------------------------------------------------------
+AOV =
+DIVIDE([Revenues in all Years], [Total Orders in all years])
+
+
+-- ------------------------------------------------------------
+-- Total Cost
+-- Derived: Revenue minus Profit
+-- Dependency: [Revenues in all Years], [Profit in all Years]
+-- ------------------------------------------------------------
+Total Cost =
+[Revenues in all Years] - [Profit in all Years]
+
+
+-- ------------------------------------------------------------
+-- ROI — Return on Investment
+-- = Net Profit / Total Cost
+-- Dependency: [Profit in all Years], [Total Cost]
+-- ------------------------------------------------------------
+ROI =
+DIVIDE([Profit in all Years], [Total Cost], 0)
+
+
+-- ------------------------------------------------------------
+-- Loss Order Profit Ratio
+-- % of orders that had negative profit
+-- Dependency: [Total Orders in all years]
+-- ------------------------------------------------------------
+Loss Order Profit Ratio =
+DIVIDE(
+    ABS(
+        CALCULATE(
+            DISTINCTCOUNT(NewOrderItem[Order Id]),
+            NewOrderItem[Order Profit Per Order] < 0
+        )
+    ),
+    [Total Orders in all years],
+    0.0
+)

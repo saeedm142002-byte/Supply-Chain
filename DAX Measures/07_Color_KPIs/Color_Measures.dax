@@ -1,0 +1,69 @@
+-- ============================================================
+-- 🎨 COLOR KPI MEASURES
+-- Category  : Visual Formatting
+-- Purpose   : Return a hex color string based on YOY direction
+--             Use in Power BI conditional formatting (font color / bg)
+-- Pattern   : IF(YOY < 0, RED, GREEN)
+--             #FF0000 = Red  (negative growth)
+--             #00B050 = Green (positive growth)
+-- ============================================================
+
+
+-- ------------------------------------------------------------
+-- Color — Revenue KPI
+-- Dependency: [YOY Growth (Revenues%)]
+-- ------------------------------------------------------------
+Color_Revenue =
+IF(
+    [YOY Growth (Revenues%)] < 0,
+    "#FF0000",
+    "#00B050"
+)
+
+
+-- ------------------------------------------------------------
+-- Color — Profit KPI
+-- Dependency: [YOY Growth (Profit%)]
+-- ------------------------------------------------------------
+Color_Profit =
+IF(
+    [YOY Growth (Profit%)] < 0,
+    "#FF0000",
+    "#00B050"
+)
+
+
+-- ------------------------------------------------------------
+-- Color — Sales KPI
+-- Dependency: [YOY Growth (Sales%)]
+-- ------------------------------------------------------------
+Color_Sales =
+IF(
+    [YOY Growth (Sales%)] < 0,
+    "#FF0000",
+    "#00B050"
+)
+
+
+-- ------------------------------------------------------------
+-- Color — Total Orders KPI
+-- Dependency: [YOY Growth (Orders%)]
+-- ------------------------------------------------------------
+Color_TotalOrders =
+IF(
+    [YOY Growth (Orders%)] < 0,
+    "#FF0000",
+    "#00B050"
+)
+
+
+-- ------------------------------------------------------------
+-- Color — Avg Profit per Order KPI
+-- Dependency: [YOY Growth (Avg Profit per Order%)]
+-- ------------------------------------------------------------
+Color_Avg Profit Per Order =
+IF(
+    [YOY Growth (Avg Profit per Order%)] < 0,
+    "#FF0000",
+    "#00B050"
+)

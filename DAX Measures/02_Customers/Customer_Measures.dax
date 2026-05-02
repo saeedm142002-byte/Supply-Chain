@@ -1,0 +1,118 @@
+-- ============================================================
+-- 👥 CUSTOMER MEASURES
+-- Category   : Customer Analytics
+-- Tables     : Dim_Customers, NewOrderItem, Date Table
+-- ============================================================
+
+
+-- ------------------------------------------------------------
+-- Total Customers
+-- Distinct count of all customers in the Dim_Customers table
+-- ------------------------------------------------------------
+Total Customers =
+DISTINCTCOUNT(Dim_Customers[Customer Id])
+
+
+-- ------------------------------------------------------------
+-- Total Customers in this year
+-- YTD distinct customer count (respects date slicer)
+-- ------------------------------------------------------------
+Total Customers in this year =
+TOTALYTD([Total Customers], 'Date Table'[Date])
+
+
+-- ------------------------------------------------------------
+-- Total Customers in last year
+-- Same period last year — used as denominator in retention
+-- ------------------------------------------------------------
+Total Customers in last year =
+CALCULATE(
+    [Total Customers],
+    SAMEPERIODLASTYEAR('Date Table'[Date])
+)
+
+
+-- ------------------------------------------------------------
+-- New Customers
+-- Customers whose FIRST order date is in the current year
+-- Dependency: Date Table, NewOrderItem
+-- ------------------------------------------------------------
+New Customers =
+VAR CurrentYear = YEAR(MAX('Date Table'[Date]))
+RETURN
+CALCULATE(
+    DISTINCTCOUNT('NewOrderItem'[Customer ID]),
+    FILTER(
+        VALUES('NewOrderItem'[Customer ID]),
+        YEAR(
+            CALCULATE(MIN('NewOrderItem'[Order Date]))
+        ) = CurrentYear
+    )
+)
+
+
+-- ------------------------------------------------------------
+-- Returning Customers
+-- Customers whose FIRST order date is BEFORE the current year
+-- Dependency: Date Table, NewOrderItem
+-- ------------------------------------------------------------
+Returning Customers =
+VAR CurrentYear = YEAR(MAX('Date Table'[Date]))
+RETURN
+CALCULATE(
+    DISTINCTCOUNT('NewOrderItem'[Customer ID]),
+    FILTER(
+        VALUES('NewOrderItem'[Customer ID]),
+        YEAR(
+            CALCULATE(MIN('NewOrderItem'[Order Date]))
+        ) < CurrentYear
+    )
+)
+
+
+-- ------------------------------------------------------------
+-- Customer Retention Rate
+-- = Retained Customers / Total Customers in last year
+-- Dependency: [Retained Customers], [Total Customers in last year]
+-- ⚠️  Requires [Retained Customers] measure (add separately if needed)
+-- ------------------------------------------------------------
+Customer Retention Rate =
+DIVIDE(
+    [Retained Customers],
+    [Total Customers in last year],
+    0
+)
+
+
+-- ------------------------------------------------------------
+-- Customer Profit  (calculated column or row-level measure)
+-- Total profit attributed to each customer — ignores all
+-- filters except Customer ID
+-- Dependency: NewOrderItem[Order Profit Per Order]
+-- ------------------------------------------------------------
+Customer Profit =
+CALCULATE(
+    SUM('NewOrderItem'[Order Profit Per Order]),
+    ALLEXCEPT('Dim_Customers', 'Dim_Customers'[Customer ID])
+)
+
+
+-- ------------------------------------------------------------
+-- Customer Sales  (calculated column or row-level measure)
+-- Total orders attributed to each customer
+-- Dependency: [Total Orders in all years]
+-- ------------------------------------------------------------
+Customer Sales =
+CALCULATE(
+    [Total Orders in all years],
+    ALLEXCEPT('Dim_Customers', 'Dim_Customers'[Customer ID])
+)
+
+
+-- ------------------------------------------------------------
+-- Avg Profit per Customer
+-- = Total Net Profit / Total Customers
+-- Dependency: [Total Net Profit], [Total Customers]
+-- ------------------------------------------------------------
+Avg profit per customer =
+DIVIDE([Total Net Profit], [Total Customers], 0.0)

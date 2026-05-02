@@ -1,0 +1,34 @@
+-- ============================================================
+-- 📅 DATE TABLE
+-- Category : Date Intelligence
+-- Table    : Date Table (calculated table)
+-- Purpose  : Central date table with all time attributes
+-- ============================================================
+
+Date Table =
+ADDCOLUMNS(
+    CALENDAR(DATE(2015,1,1), DATE(2017,12,31)),  -- update range as needed
+
+    "Year",           YEAR([Date]),
+    "Month Number",   MONTH([Date]),
+    "Month Name",     FORMAT([Date], "MMM"),       -- Jan, Feb ...
+    "Month Full",     FORMAT([Date], "MMMM"),      -- January, February ...
+    "Quarter",        "Q" & FORMAT([Date], "Q"),   -- Q1, Q2 ...
+
+    "Year-Month",     FORMAT([Date], "YYYY-MM"),           -- 2017-03
+    "Year-Quarter",   YEAR([Date]) & "-Q" & FORMAT([Date], "Q"),  -- 2017-Q1
+
+    "Week Number",    WEEKNUM([Date]),
+    "Day",            DAY([Date]),
+    "Day Name",       FORMAT([Date], "DDD"),        -- Mon, Tue ...
+    "Day Full",       FORMAT([Date], "DDDD"),       -- Monday, Tuesday ...
+
+    "Is Weekend",     IF(WEEKDAY([Date],2) > 5, "Weekend", "Weekday"),
+
+    "Month-Year Sort", YEAR([Date]) * 100 + MONTH([Date])  -- for sort: 201703
+)
+
+-- ⚠️  After creating this table:
+--    1. Mark it as a Date Table (Date | Date]
+--    2. Create relationships to NewOrderItem[Order Date], Dim_Shipping[...], etc.
+--    3. Use [Month-Year Sort] as sort column for [Month Name] and [Year-Month]

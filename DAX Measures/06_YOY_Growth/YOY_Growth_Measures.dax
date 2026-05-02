@@ -1,0 +1,67 @@
+-- ============================================================
+-- 📈 YEAR-OVER-YEAR GROWTH MEASURES
+-- Category  : Time Intelligence / Growth Tracking
+-- Pattern   : (This Year - Last Year) / Last Year
+-- All return a decimal (e.g. 0.12 = 12% growth)
+-- ============================================================
+
+
+-- ------------------------------------------------------------
+-- YOY Growth — Orders
+-- Dependency: [Total Orders in this year], [Total Orders in last year]
+-- ------------------------------------------------------------
+YOY Growth (Orders%) =
+DIVIDE(
+    [Total Orders in this year] - [Total Orders in last year],
+    [Total Orders in last year],
+    0
+)
+
+
+-- ------------------------------------------------------------
+-- YOY Growth — Revenues
+-- Dependency: [Revenues in this year], [Revenues in last year]
+-- ------------------------------------------------------------
+YOY Growth (Revenues%) =
+DIVIDE(
+    [Revenues in this year] - [Revenues in last year],
+    [Revenues in last year],
+    0
+)
+
+
+-- ------------------------------------------------------------
+-- YOY Growth — Profit
+-- Dependency: [Profit in this year], [Profit in last year]
+-- ------------------------------------------------------------
+YOY Growth (Profit%) =
+DIVIDE(
+    [Profit in this year] - [Profit in last year],
+    [Profit in last year],
+    0
+)
+
+
+-- ------------------------------------------------------------
+-- YOY Growth — Sales
+-- Dependency: [Sales in this year], [Sales in last year]
+-- ⚠️  Requires [Sales in this year] and [Sales in last year] measures
+-- ------------------------------------------------------------
+YOY Growth (Sales%) =
+DIVIDE(
+    [Sales in this year] - [Sales in last year],
+    [Sales in last year],
+    0
+)
+
+
+-- ------------------------------------------------------------
+-- YOY Growth — Avg Profit per Order
+-- Dependency: [Avg Profit per Order in this year], [Avg Profit per Order in last year]
+-- ------------------------------------------------------------
+YOY Growth (Avg Profit per Order%) =
+DIVIDE(
+    [Avg Profit per Order in this year] - [Avg Profit per Order in last year],
+    [Avg Profit per Order in last year],
+    0
+)
