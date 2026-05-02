@@ -24,84 +24,88 @@
 ## 📌 Overview
 * This project presents a comprehensive analysis of a Supply Chain and Sales dataset with the goal of uncovering key insights related to business performance, operational efficiency, customer behavior, and regional trends.
 
-Despite achieving a **+4.5% year-over-year increase in total orders**, the company experienced a decline in both revenue quality and profit per order, indicating that growth is driven by volume rather than value.
+* Despite achieving a **+4.5% year-over-year increase in total orders**, the company experienced a decline in both revenue quality and profit per order, indicating that growth is driven by volume rather than value.
 
 ---
 
 ## 🎯 Business Problem
-Although the business is growing in terms of order volume, several underlying issues are negatively impacting overall performance. Revenue per order is declining, customer retention is weakening, and delivery delays are significantly high.
+* Although the business is growing in terms of order volume, several underlying issues are negatively impacting overall performance. Profit per order is declining, customer retention is weakening, and delivery delays are significantly high.
 
-This project aims to identify the root causes behind these challenges and provide actionable insights to improve profitability and customer experience.
+* This project aims to identify the root causes behind these challenges and provide actionable insights to improve profitability and customer experience.
+
+* Late deliveries account for 54.8% of total orders, highlighting a critical operational issue that requires immediate attention.
 
 ---
 
 ## 📊 Key Insights
 
 ### 1. Revenue & Profitability
-The total number of orders increased by **4.5% YoY**, but the **Average Order Value (AOV)** dropped from **$529 to $488**, indicating lower spending per transaction.
+* The total number of orders increased by **4.5% YoY**, but the **Average Order Value (AOV)** dropped from **$529 to $488**, indicating lower spending per transaction.
 
-The **average profit per order decreased by approximately 4.6%**, mainly due to increased discounting, where the **average discount rose from $20 to $22**. While the **profit margin slightly increased by 0.5%**, it was not sufficient to offset the decline in revenue quality.
+* The **average profit per order decreased by approximately 4.6%**, mainly due to increased discounting, where the **average discount rose from $20 to $22**. While the **profit margin slightly increased by 0.5%**, it was not sufficient to offset the decline in revenue quality.
 
 ---
 
 ### 2. Logistics Performance (Critical Issue)
-Logistics performance is a major concern, as **54.8% of orders are delivered late**, while only **40.8% are delivered on time or earlier**. Additionally, **4.4% of orders are canceled**.
+* Logistics performance is a major concern, as **54.8% of orders are delivered late**, while only **40.8% are delivered on time or earlier**. Additionally, **4.4% of orders are canceled**.
 
-The **Second Class shipping mode**, although highly profitable, has an average delay of **2.5 days**, which significantly impacts customer satisfaction. The company generates **$12.2 profit per delay day**, indicating a reliance on inefficient operations.
+* The **Second Class shipping mode**, although highly profitable, has an average delay of **2.5 days**, which significantly impacts customer satisfaction. The company generates **$12.2 profit per delay day**, indicating a reliance on inefficient operations.
 
 ---
 
 ### 3. Customer Behavior
-The number of new customers increased by **50%**, reflecting strong acquisition efforts. However, **customer retention decreased by 4%**, suggesting that customers are not satisfied enough to return.
+* The number of new customers increased by **50%**, reflecting strong acquisition efforts. However, **customer retention decreased by 4%**, suggesting that customers are not satisfied enough to return.
 
-This is likely driven by poor delivery performance and overall customer experience.
+* This is likely driven by poor delivery performance and overall customer experience.
 
 ---
 
 ### 4. Regional Performance
-The **United States market declined dramatically**, dropping from approximately **40% of total profit to less than 1%**.
+* The **United States market declined dramatically**, dropping from approximately **40% of total profit to less than 1%**.
 
-In contrast, the **LATAM market surged**, contributing **44% of total profit** after being recently reopened. This highlights a major shift in regional dependency.
+* In contrast, the **LATAM market surged**, contributing **44% of total profit** after being recently reopened. This highlights a major shift in regional dependency.
 
 ---
 
 ### 5. Product & Department Performance
-The **Fishing category** is the top-performing segment, generating **$218.7K in profit (16.7% of total profit)**.
+* The **Fishing category** is the top-performing segment, generating **$218.7K in profit (16.7% of total profit)**.
 
-The **Fitness department** achieved the highest ROI and has maintained its leading position for three consecutive years.
+* The **Fitness department** achieved the highest ROI and has maintained its leading position for three consecutive years.
 
 ---
 
 ### 6. Payment Methods
-**Debit Card payments** contribute the highest share of profit at **39%**, while **Cash payments** contribute only **11%**, making them the least profitable method.
+* **Debit Card payments** contribute the highest share of profit at **39%**, while **Cash payments** contribute only **11%**, making them the least profitable method.
 
 ---
 
 ## 🔍 Root Cause Analysis
-The decline in performance is driven by multiple factors. Increased discounting and lower AOV are reducing revenue quality, while logistics inefficiencies—especially high delivery delays—are negatively affecting customer satisfaction.
+* The decline in performance is driven by multiple factors. Increased discounting and lower AOV are reducing revenue quality, while logistics inefficiencies—especially high delivery delays—are negatively affecting customer satisfaction.
 
-Additionally, the business appears to rely on delay-driven profitability, which is not sustainable. The decline in customer retention and the collapse of the US market further highlight deeper operational and strategic issues.
+* Additionally, the business appears to rely on delay-driven profitability, which is not sustainable. The decline in customer retention and the collapse of the US market further highlight deeper operational and strategic issues.
 
 ---
 
 ## 💡 Recommendations
-The company should prioritize improving logistics performance by reducing late deliveries and optimizing shipping modes. Redesigning the discount strategy and focusing on personalized offers can help improve profitability.
+* The company should prioritize improving logistics performance by reducing late deliveries and optimizing shipping modes. Redesigning the discount strategy and focusing on personalized offers can help improve profitability.
 
-Customer retention should be enhanced through loyalty programs and better post-purchase experiences. The US market requires a detailed reassessment, while the LATAM market should be further scaled.
+* Customer retention should be enhanced through loyalty programs and better post-purchase experiences. The US market requires a detailed reassessment, while the LATAM market should be further scaled.
 
-Finally, increasing revenue per order through upselling and bundling strategies can help improve overall performance.
+* Finally, increasing Profit per order through upselling and bundling strategies can help improve overall performance.
 
 ---
 
 ## 🛠️ Technical Approach
 
 ### Data Preparation
-The dataset was cleaned by handling missing values, fixing inconsistencies, correcting date columns, and removing duplicates.
+The dataset was cleaned by handling missing values, fixing inconsistencies, correcting date columns, and removing duplicates (Power Query).
 
 ### Data Modeling
-A **Star Schema** was implemented with a central Fact table (`FactOrders`) and multiple Dimension tables such as Customers, Products, Categories, Departments, Locations, and Shipping.
+* A **Star Schema** was implemented with a central Fact table (`FactOrders`) and multiple Dimension tables such as Customers, Products, Categories, Departments, Locations, and Shipping.
 
-A Date table was also created to enable Time Intelligence analysis.
+* A Date table was also created to enable Time Intelligence analysis.
+
+![Data Modeling](Screenshots/DataModeling.png)
 
 ### Data Analysis
 Key KPIs were developed using DAX, including AOV, Profit per Order, Delivery Performance, Retention Rate, and YoY growth metrics.
@@ -155,27 +159,6 @@ This page focuses on customer behavior, including new vs returning customers, re
 This page highlights top-performing products, categories, and departments based on profit and ROI.
 
 ![Products](Screenshots/Products.png)
-
-
-## 📂 Repository Structure
-
-```bash
-Supply-Chain-Sales-Analysis/
-│
-├── Dataset/
-│   └── raw_data.csv
-│
-├── PowerBI/
-│   └── dashboard.pbix
-│
-├── Screenshots/
-│   ├── overview.png
-│   ├── logistics.png
-│   └── customers.png
-│
-├── DAX_Measures.md
-└── README.md
-```
 
 ---
 
